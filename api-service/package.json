@@ -1,0 +1,20 @@
+{
+  "name": "back-end-application",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brendon Ferreira <brendonferreiradm@gmail.com>",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "csurf": "^1.10.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.7.1",
+    "morgan": "^1.9.1"
+  }
+}

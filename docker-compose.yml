@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: shhhhhhh
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./.database-cache:/data/db
+    networks:
+      - mongo-compose-network
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: root
+      ME_CONFIG_BASICAUTH_PASSWORD: shhhhhhh
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: shhhhhhh
+    links:
+      - mongo
+    networks:
+      - mongo-compose-network
+
+
+  application-service:
+    build:
+      context: api-service 
+
+    environment:
+      MONGO_URL: mongodb://mongo:27017/test
+      WAIT_HOSTS: mongo:27017
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api-service/:/usr/src/service/
+    links:
+      - mongo
+    
+    networks:
+      - mongo-compose-network
+
+networks: 
+  mongo-compose-network:
+    driver: bridge
